@@ -25,7 +25,7 @@
             <Button mnemonicParsing="false" onAction="#buttonPushed" prefHeight="25.0" prefWidth="139.0" text="Button" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" text="Button" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" text="Button" />
+            <Button mnemonicParsing="false" onAction="#changeScreenButtonPushed" prefHeight="25.0" prefWidth="139.0" text="Button" />
          </children>
       </VBox>
    </left>
