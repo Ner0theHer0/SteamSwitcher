@@ -13,7 +13,7 @@
 
 <BorderPane id="BorderPane" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <center>
-      <AnchorPane prefHeight="501.0" prefWidth="764.0" style="-fx-background-color: #152238;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="501.0" prefWidth="764.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="label" layoutX="14.0" layoutY="26.0" prefHeight="59.0" prefWidth="69.0" text="Label" textFill="WHITE" />
          </children></AnchorPane>
@@ -22,10 +22,10 @@
       <VBox prefHeight="501.0" prefWidth="121.0" style="-fx-background-color: #1c2e4a;" BorderPane.alignment="CENTER">
          <children>
             <Region prefHeight="68.0" prefWidth="121.0" />
-            <Button mnemonicParsing="false" onAction="#buttonPushed" prefHeight="25.0" prefWidth="139.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" text="Button" />
-            <Button mnemonicParsing="false" onAction="#changeScreenButtonPushed" prefHeight="25.0" prefWidth="139.0" text="Button" />
+            <Button mnemonicParsing="false" onAction="#changeScreenButtonPushed1" prefHeight="40.0" prefWidth="121.0" style="-fx-background-color: #152238;" text="Button" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#changeScreenButtonPushed2" prefHeight="40.0" prefWidth="121.0" text="Button" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#changeScreenButtonPushed3" prefHeight="40.0" prefWidth="121.0" text="Button" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#changeScreenButtonPushed4" prefHeight="40.0" prefWidth="121.0" text="Button" textFill="WHITE" />
          </children>
       </VBox>
    </left>
