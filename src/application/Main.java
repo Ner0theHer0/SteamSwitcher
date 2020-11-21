@@ -19,11 +19,13 @@ public class Main extends Application {
 	        
 	     primaryStage.setScene(scene);
 	     primaryStage.show();
-	     
+    
 	     SampleController ctr = new SampleController();
 	     
 	     FXMLLoader ld = new FXMLLoader();
 	     ld.setController(ctr);
+	     
+	     
 	     
 //		
 	}

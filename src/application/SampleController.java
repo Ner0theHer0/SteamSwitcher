@@ -23,7 +23,7 @@ public class SampleController implements Initializable {
 	private Button button2;
 	private Button button3;
 	
-	
+	public Backend bk;
 	
 
 	public void buttonPushed() {
@@ -36,16 +36,19 @@ public class SampleController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		
+		bk = new Backend();
 		label.setText("someyhing");
 	}
 	
 	public void changeScreenButtonPushed1(ActionEvent event) throws IOException {
 		
+		bk.addUser("Ner0", "her0");
+		
 		Parent FirViewParent = FXMLLoader.load(getClass().getResource("PaneOne.fxml"));
 		Scene FirViewScene = new Scene(FirViewParent);
 		
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
 		
 		
 		window.setScene(FirViewScene);
