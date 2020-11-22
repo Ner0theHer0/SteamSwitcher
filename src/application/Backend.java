@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Backend {
@@ -37,7 +38,7 @@ public class Backend {
 			try {
 				
 				BufferedWriter out = new BufferedWriter(new FileWriter(path, true)); 
-		        out.write("\n" + user + " " + pass); 
+		        out.write(user + " " + pass + "\n"); 
 		        out.close();
 		        
 			    System.out.println("Successfully created new user.");
@@ -50,16 +51,51 @@ public class Backend {
 		
 	}
 	
+	public void removeUser(String user) {
+		
+		if (!map.containsKey(user)) {
+			System.out.println("This user does not exist");
+		}
+		
+		else {
+			
+			
+			map.remove(user);
+			
+			try {
+				FileWriter writer = new FileWriter(path);
+				
+			    writer.write("");
+			    writer.close();
+			    
+			    for (String key : map.keySet()) {
+			    	BufferedWriter out = new BufferedWriter(new FileWriter(path, true)); 
+			        out.write(key + " " + map.get(key) + "\n"); 
+			        out.close();
+				}
+			    
+			    
+			} catch (Exception e) {
+				System.out.println("Something went wrong");
+			}
+		}
+	}
+	
 	public void readFromFile() {
 		try {
 			Scanner in = new Scanner(new FileReader(path));
 			numUsers = 0;
 			
+			
 			while (in.hasNext()) {
+				
 				String[] thisLine = in.nextLine().split("\\s+");
+				//User usr = new User(thisLine[0], thisLine[1], numUsers);
 				map.put(thisLine[0], thisLine[1]);
-				numUsers++;	
+				numUsers++;
+					
 			}
+			
 			
 			
 		} catch (Exception e) {

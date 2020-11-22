@@ -42,6 +42,8 @@ public class SampleController implements Initializable {
 	
 	public void changeScreenButtonPushed1(ActionEvent event) throws IOException {
 		
+		
+		
 		bk.addUser("Ner0", "her0");
 		
 		Parent FirViewParent = FXMLLoader.load(getClass().getResource("PaneOne.fxml"));
@@ -57,6 +59,8 @@ public class SampleController implements Initializable {
 	
 	public void changeScreenButtonPushed2(ActionEvent event) throws IOException {
 		
+		bk.removeUser("name");
+		
 		Parent SecViewParent = FXMLLoader.load(getClass().getResource("PaneTwo.fxml"));
 		Scene SecViewScene = new Scene(SecViewParent);
 		//SecViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -70,6 +74,8 @@ public class SampleController implements Initializable {
 	
 	public void changeScreenButtonPushed3(ActionEvent event) throws IOException {
 		
+		bk.addUser("Ner0the", "her0");
+		
 		Parent ThirViewParent = FXMLLoader.load(getClass().getResource("PaneThree.fxml"));
 		Scene ThirViewScene = new Scene(ThirViewParent);
 		
@@ -81,14 +87,16 @@ public class SampleController implements Initializable {
 	}
 
 	public void changeScreenButtonPushed4(ActionEvent event) throws IOException {
+		
+		bk.addUser("notner0", "her0");
 	
-	Parent ForViewParent = FXMLLoader.load(getClass().getResource("PaneFour.fxml"));
-	Scene ForViewScene = new Scene(ForViewParent);
-	
-	Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-	
-	
-	window.setScene(ForViewScene);
-	window.show();
+		Parent ForViewParent = FXMLLoader.load(getClass().getResource("PaneFour.fxml"));
+		Scene ForViewScene = new Scene(ForViewParent);
+		
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		
+		window.setScene(ForViewScene);
+		window.show();
 	}
 }

@@ -12,19 +12,18 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		 Parent root = FXMLLoader.load(getClass().getResource("PaneOne.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("PaneOne.fxml"));
 		 
-	     Scene scene = new Scene(root);
-	     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+	    Scene scene = new Scene(root);
+	    scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	        
-	     primaryStage.setScene(scene);
-	     primaryStage.show();
+	    primaryStage.setScene(scene);
+	    primaryStage.show();
     
-	     SampleController ctr = new SampleController();
+	    SampleController ctr = new SampleController();
 	     
-	     FXMLLoader ld = new FXMLLoader();
-	     ld.setController(ctr);
-	     
+	    FXMLLoader ld = new FXMLLoader();
+	    ld.setController(ctr);
 	     
 	     
 //		
