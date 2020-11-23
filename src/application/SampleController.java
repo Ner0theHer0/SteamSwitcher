@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 
@@ -30,6 +31,7 @@ public class SampleController implements Initializable {
 	public Button addButton;
 	
 	@FXML Button exitButton;
+	@FXML Button minButton;
 	
 	public Backend bk;
 	
@@ -51,6 +53,7 @@ public class SampleController implements Initializable {
 	private double x = 0;
 	private double y = 0;
 	
+	@FXML
 	private Stage stage;
 
 	
@@ -80,10 +83,22 @@ public class SampleController implements Initializable {
 		});
 	}
 	
+	public void minimiseWindow(ActionEvent event) {
+		stage = (Stage)basePane.getScene().getWindow();
+		stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+		
+		stage.setIconified(true);
+	}
+	
 	public void addAccountButtonPushed(ActionEvent event) throws IOException {
 		Parent popParent = FXMLLoader.load(getClass().getResource("Popup.fxml"));
 		
+		
 		Stage popup = new Stage();
+		
+		popup.initStyle(StageStyle.TRANSPARENT);
+		
+		
 		
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.setTitle("Add Account");
@@ -100,8 +115,6 @@ public class SampleController implements Initializable {
 	
 	@FXML
 	public void addAcc(ActionEvent event) throws IOException {
-		
-		//bk = new Backend();
 		
 		boolean sw = false;
 		
@@ -142,7 +155,11 @@ public class SampleController implements Initializable {
 		
 		popup.showAndWait();
 		
-		((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
+		
+		if (sw == true) {
+			((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
+		}
+		
 		
 		bk = new Backend();
 	}

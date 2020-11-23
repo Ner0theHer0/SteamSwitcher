@@ -11,12 +11,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane id="BorderPane" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <center>
       <AnchorPane fx:id="basePane" prefHeight="500.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="addButton" layoutX="701.0" layoutY="462.0" mnemonicParsing="false" onAction="#addAccountButtonPushed" prefHeight="25.0" prefWidth="88.0" text="Add Account" />
+            <Button fx:id="addButton" layoutX="692.0" layoutY="455.0" mnemonicParsing="false" onAction="#addAccountButtonPushed" styleClass="purpBut" text="Add Account" textFill="#bb86fc">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font></Button>
          </children></AnchorPane>
    </center>
    <left>
@@ -52,10 +56,19 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Region prefHeight="25.0" prefWidth="759.0" visible="false" />
-            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#handleCloseButtonAction">
+            <Region prefHeight="25.0" prefWidth="741.0" visible="false" />
+            <Button mnemonicParsing="false" onAction="#minimiseWindow" prefHeight="24.0" prefWidth="0.0" styleClass="navButton">
                <graphic>
-                  <ImageView fitHeight="14.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-minus-24.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#handleCloseButtonAction" styleClass="navButton">
+               <graphic>
+                  <ImageView fitHeight="14.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="navButton">
                      <image>
                         <Image url="@../images/icons8-delete-24.png" />
                      </image>

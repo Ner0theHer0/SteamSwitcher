@@ -20,33 +20,13 @@ public class Main extends Application {
 		 Parent root = FXMLLoader.load(getClass().getResource("Sample.fxml"));
 		 
 		 primaryStage.initStyle(StageStyle.TRANSPARENT);
-		 
-		 
-		 
-//		 hboxtop.setOnMousePressed(new EventHandler<MouseEvent>() {
-//			 @Override
-//	         public void handle(MouseEvent event) {
-//				 xOffset = event.getSceneX();
-//	             yOffset = event.getSceneY();
-//	         }
-//	     });
-//	        
-//	        
-//	     hboxtop.setOnMouseDragged(new EventHandler<MouseEvent>() {
-//	    	 @Override
-//	         public void handle(MouseEvent event) {
-//	    		 primaryStage.setX(event.getScreenX() - xOffset);
-//	             primaryStage.setY(event.getScreenY() - yOffset);
-//	         }
-//	     });	
 	        
 	     Scene scene = new Scene(root);
 	     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	        
 	     
 	     primaryStage.setScene(scene);
-	     primaryStage.show();
-//		
+	     primaryStage.show();		
 	}
 	
 	public static void main(String[] args) {

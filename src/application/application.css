@@ -2,13 +2,17 @@
 
 /*  #23395d, #203354, #1c2e4a, #192841, #152238  */
 
-#exitButton {
+.navButton {
 	-fx-background-color: transparent;
 	-fx-skin: "application.ButtonFade";
 }
 
 #basePane {
 	-fx-background-color: #292929;
+}
+
+#popupBasePane {
+	-fx-background-color: #555555;
 }
 
 #vboxleft {
@@ -25,4 +29,23 @@
 
 .menu .label {
 	-fx-text-fill: white;
+}
+
+.menu-item .label {
+	-fx-text-fill: black;
+}
+
+#addButton:hover {
+	-fx-opacity: 0.8;
+}
+
+.purpBut {
+	-fx-border-color:  #bb86fc;
+	-fx-border-width:  2px;
+	-fx-border-radius: 5;
+	-fx-background-color:  rgba(187,134,252,0.25);
+	-fx-background-radius: 5;
+	-fx-text-fill: #bb86fc;
+	
+	-fx-font-size: 14px;
 }

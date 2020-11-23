@@ -30,7 +30,12 @@ public class Backend {
 		if (map.containsKey(user)) {
 			System.out.println("User already exists!");
 			return false;
-		} 
+		}
+		
+		if (user.equals("") || pass.equals("")) {
+			System.out.println("Cannot add a blank username or password");
+			return false;
+		}
 		
 		else {
 			user.replaceAll("\\s+","");
