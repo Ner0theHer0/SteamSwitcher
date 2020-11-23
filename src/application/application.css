@@ -1,2 +1,28 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
+/*  #23395d, #203354, #1c2e4a, #192841, #152238  */
+
+#exitButton {
+	-fx-background-color: transparent;
+	-fx-skin: "application.ButtonFade";
+}
+
+#basePane {
+	-fx-background-color: #292929;
+}
+
+#vboxleft {
+	-fx-background-color: #1d1d1d;
+}
+
+#hboxtop {
+	-fx-background-color: #414141;
+}
+
+.menu-bar {
+	-fx-background-color: #414141;
+}
+
+.menu .label {
+	-fx-text-fill: white;
+}

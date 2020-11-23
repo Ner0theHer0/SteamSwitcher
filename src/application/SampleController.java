@@ -11,6 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -26,6 +29,8 @@ public class SampleController implements Initializable {
 	@FXML 
 	public Button addButton;
 	
+	@FXML Button exitButton;
+	
 	public Backend bk;
 	
 	@FXML
@@ -36,6 +41,17 @@ public class SampleController implements Initializable {
 	
 	@FXML
 	private Button confirm;
+	
+	@FXML
+	private HBox hboxtop;
+	
+	@FXML
+	private AnchorPane basePane;
+	
+	private double x = 0;
+	private double y = 0;
+	
+	private Stage stage;
 
 	
 
@@ -46,9 +62,23 @@ public class SampleController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		makeDragable();
 		bk = new Backend();
 	}
 	
+	public void makeDragable() {
+		
+		hboxtop.setOnMousePressed((event) -> {
+			x = event.getSceneX();
+			y = event.getSceneY();
+		});
+		
+		hboxtop.setOnMouseDragged((event) -> {
+			stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+			stage.setX(event.getScreenX() - x);
+			stage.setY(event.getScreenY() - y);
+		});
+	}
 	
 	public void addAccountButtonPushed(ActionEvent event) throws IOException {
 		Parent popParent = FXMLLoader.load(getClass().getResource("Popup.fxml"));
@@ -61,6 +91,8 @@ public class SampleController implements Initializable {
 		
 		
 		Scene scene = new Scene(popParent);
+		
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		popup.setScene(scene);
 		popup.showAndWait();
 		
