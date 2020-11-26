@@ -55,6 +55,7 @@ public class SampleController implements Initializable {
 	
 	@FXML
 	private Stage stage;
+	
 
 	
 
@@ -134,6 +135,7 @@ public class SampleController implements Initializable {
 		Parent popParent = ld.load();
 		
 		Stage popup = new Stage();
+		popup.initStyle(StageStyle.TRANSPARENT);
 		
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.setTitle("Add Account");
@@ -141,6 +143,7 @@ public class SampleController implements Initializable {
 		
 		
 		Scene scene = new Scene(popParent);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 		
 		popup.setScene(scene);

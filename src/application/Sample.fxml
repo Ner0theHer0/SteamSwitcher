@@ -35,7 +35,7 @@
       </VBox>
    </left>
    <top>
-      <HBox fx:id="hboxtop" BorderPane.alignment="CENTER">
+      <HBox fx:id="hboxtop" styleClass="hboxtop" BorderPane.alignment="CENTER">
          <children>
             <MenuBar prefHeight="25.0" prefWidth="132.0">
               <menus>
