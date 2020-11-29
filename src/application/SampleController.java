@@ -4,13 +4,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import javafx.fxml.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -56,6 +61,17 @@ public class SampleController implements Initializable {
 	@FXML
 	private Stage stage;
 	
+	@FXML
+	private TableView<String> tView;
+	@FXML
+	private TableColumn<String, String> colName;
+	
+	ObservableList<String> ls = FXCollections.observableArrayList(
+			new String ("something"),
+			new String ("red"),
+			new String ("rofl")
+			
+			);
 
 	
 
@@ -66,13 +82,15 @@ public class SampleController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		colName.setCellValueFactory(new PropertyValueFactory<String, String>("colName"));
+		tView.setItems(ls);
 		makeDragable();
 		bk = new Backend();
 	}
 	
 	public void makeDragable() {
 		
-		hboxtop.setOnMousePressed((event) -> {
+		hboxtop.setOnMousePressed((event) -> {		
 			x = event.getSceneX();
 			y = event.getSceneY();
 		});
@@ -117,17 +135,7 @@ public class SampleController implements Initializable {
 	@FXML
 	public void addAcc(ActionEvent event) throws IOException {
 		
-		boolean sw = false;
-		
-		if (usrn.getText() != null && passw.getText() != null) {
-			
-			if (bk.addUser(usrn.getText(), passw.getText())) {
-				sw = true;
-			} else {
-				sw = false;
-			}
-			
-		}
+		String str = bk.addUser(usrn.getText(), passw.getText());
 		
 		FXMLLoader ld = new FXMLLoader();
 		ld.setLocation(getClass().getResource("Confirmation.fxml"));
@@ -149,17 +157,12 @@ public class SampleController implements Initializable {
 		popup.setScene(scene);
 		ConfirmController ctr = ld.getController();
 		
-		if (sw == true) {
-			
-			ctr.setLabel("User added successfully");
-		} else {
-			ctr.setLabel("Error adding user");
-		}
+		ctr.setLabel(str);
 		
 		popup.showAndWait();
 		
 		
-		if (sw == true) {
+		if (str.equals("Successfully created new user.")) {
 			((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
 		}
 		

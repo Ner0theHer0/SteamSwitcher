@@ -25,16 +25,15 @@ public class Backend {
 		
 	}
 	
-	public boolean addUser(String user, String pass) {
+	public String addUser(String user, String pass) {
 		
 		if (map.containsKey(user)) {
-			System.out.println("User already exists!");
-			return false;
+			return ("User already exists!");
+			
 		}
 		
 		if (user.equals("") || pass.equals("")) {
-			System.out.println("Cannot add a blank username or password");
-			return false;
+			return ("Cannot add a blank username or password");
 		}
 		
 		else {
@@ -45,23 +44,20 @@ public class Backend {
 				BufferedWriter out = new BufferedWriter(new FileWriter(path, true)); 
 		        out.write(user + " " + pass + "\n"); 
 		        out.close();
-		        
-			    System.out.println("Successfully created new user.");
 			    
 			} catch (Exception e) {
-				System.out.println("Couldn't create new user: " + e);
-				return false;
+				return ("Couldn't create new user: " + e);
 			}
 		}
 		
-		return true;
+		return ("Successfully created new user.");
 		
 	}
 	
-	public void removeUser(String user) {
+	public String removeUser(String user) {
 		
 		if (!map.containsKey(user)) {
-			System.out.println("This user does not exist");
+			return "This user does not exist";
 		}
 		
 		else {
@@ -83,9 +79,11 @@ public class Backend {
 			    
 			    
 			} catch (Exception e) {
-				System.out.println("Something went wrong");
+				return ("Something went wrong: " + e);
 			}
 		}
+		
+		return ("Successfully removed account");
 	}
 	
 	public void readFromFile() {
