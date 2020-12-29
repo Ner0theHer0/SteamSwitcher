@@ -62,15 +62,15 @@ public class SampleController implements Initializable {
 	private Stage stage;
 	
 	@FXML
-	private TableView<String> tView;
+	private TableView<User> tView;
 	@FXML
-	private TableColumn<String, String> colName;
+	private TableColumn<User, String> userCol;
 	
-	ObservableList<String> ls = FXCollections.observableArrayList(
-			new String ("something"),
-			new String ("red"),
-			new String ("rofl")
-			
+	private ObservableList<User> ls = FXCollections.observableArrayList(
+//			new User("joe", "beans"),
+//			new User("ur", "mum"),
+//			new User("toe", "sucker")
+//			
 			);
 
 	
@@ -79,13 +79,27 @@ public class SampleController implements Initializable {
 		//String m = "mess";
 		this.label1.setText("asdasdasdasdad");
 	}
+	
+	public void setTable() {
+		ls.clear();
+		for (HashMap.Entry<String, User> entry : bk.map.entrySet()) {
+		    ls.add(entry.getValue());
+		    //System.out.println("smth");
+		}
+		
+		tView.getItems().clear();
+		//userCol.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
+		tView.setItems(ls);
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		colName.setCellValueFactory(new PropertyValueFactory<String, String>("colName"));
-		tView.setItems(ls);
 		makeDragable();
 		bk = new Backend();
+		//setTable();
+		System.out.println("SOEMTH");
+		
+		
 	}
 	
 	public void makeDragable() {
@@ -110,10 +124,14 @@ public class SampleController implements Initializable {
 	}
 	
 	public void addAccountButtonPushed(ActionEvent event) throws IOException {
+		
 		Parent popParent = FXMLLoader.load(getClass().getResource("Popup.fxml"));
 		
 		
 		Stage popup = new Stage();
+		
+		bk = new Backend();
+		
 		
 		popup.initStyle(StageStyle.TRANSPARENT);
 		
@@ -128,6 +146,7 @@ public class SampleController implements Initializable {
 		
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		popup.setScene(scene);
+		
 		popup.showAndWait();
 		
 	}

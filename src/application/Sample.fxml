@@ -31,7 +31,7 @@
             <Region prefHeight="68.0" prefWidth="121.0" />
             <TableView fx:id="tView" prefHeight="287.0" prefWidth="121.0">
               <columns>
-                <TableColumn fx:id="colName" prefWidth="120.0" text="C1" />
+                <TableColumn fx:id="userCol" prefWidth="120.0" text="C1" />
               </columns>
             </TableView>
          </children>

@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Backend {
 	
 	private int numUsers;
-	HashMap<String, String> map = new HashMap<String, String>();
+	HashMap<String, User> map = new HashMap<String, User>();
 	private String path = "src/application/users.txt";
 	
 	public Backend() {
@@ -19,8 +19,8 @@ public class Backend {
 		
 		System.out.println(numUsers);
 		
-		for (HashMap.Entry<String, String> entry : map.entrySet()) {
-		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+		for (HashMap.Entry<String, User> entry : map.entrySet()) {
+		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getPassword());
 		}
 		
 	}
@@ -37,6 +37,7 @@ public class Backend {
 		}
 		
 		else {
+			
 			user.replaceAll("\\s+","");
 			
 			try {
@@ -73,7 +74,7 @@ public class Backend {
 			    
 			    for (String key : map.keySet()) {
 			    	BufferedWriter out = new BufferedWriter(new FileWriter(path, true)); 
-			        out.write(key + " " + map.get(key) + "\n"); 
+			        out.write(key + " " + map.get(key).getPassword() + "\n"); 
 			        out.close();
 				}
 			    
@@ -95,7 +96,7 @@ public class Backend {
 			while (in.hasNext()) {
 				
 				String[] thisLine = in.nextLine().split("\\s+");
-				map.put(thisLine[0], thisLine[1]);
+				map.put(thisLine[0], new User(thisLine[0], thisLine[1]));
 				numUsers++;
 					
 			}
