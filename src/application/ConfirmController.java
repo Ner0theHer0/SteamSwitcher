@@ -20,6 +20,7 @@ public class ConfirmController {
 	public void handleCloseButtonAction(ActionEvent event) {
 		
 		((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
+		System.out.println("should");
 	}
 
 }

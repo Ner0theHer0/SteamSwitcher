@@ -87,8 +87,8 @@ public class SampleController implements Initializable {
 		    //System.out.println("smth");
 		}
 		
-		tView.getItems().clear();
-		//userCol.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
+		//tView.getItems().clear();
+		userCol.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
 		tView.setItems(ls);
 	}
 
@@ -96,7 +96,7 @@ public class SampleController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		makeDragable();
 		bk = new Backend();
-		//setTable();
+		setTable();
 		System.out.println("SOEMTH");
 		
 		
@@ -125,80 +125,78 @@ public class SampleController implements Initializable {
 	
 	public void addAccountButtonPushed(ActionEvent event) throws IOException {
 		
-		Parent popParent = FXMLLoader.load(getClass().getResource("Popup.fxml"));
+		Parent addView = FXMLLoader.load(getClass().getResource("Popup.fxml"));
 		
 		
 		Stage popup = new Stage();
 		
-		bk = new Backend();
-		
-		
-		popup.initStyle(StageStyle.TRANSPARENT);
-		
-		
-		
-		popup.initModality(Modality.APPLICATION_MODAL);
-		popup.setTitle("Add Account");
-		popup.setMinWidth(300);
-		
-		
-		Scene scene = new Scene(popParent);
-		
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		popup.setScene(scene);
-		
-		popup.showAndWait();
-		
-	}
-	
-	@FXML
-	public void addAcc(ActionEvent event) throws IOException {
-		
-		String str = bk.addUser(usrn.getText(), passw.getText());
-		
-		FXMLLoader ld = new FXMLLoader();
-		ld.setLocation(getClass().getResource("Confirmation.fxml"));
-		
-		Parent popParent = ld.load();
-		
-		Stage popup = new Stage();
 		popup.initStyle(StageStyle.TRANSPARENT);
 		
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.setTitle("Add Account");
 		popup.setMinWidth(300);
+		Scene addViewScene = new Scene(addView);
+		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		popup.setScene(addViewScene);
 		
 		
-		Scene scene = new Scene(popParent);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
-		
-		popup.setScene(scene);
-		ConfirmController ctr = ld.getController();
-		
-		ctr.setLabel(str);
+		//bk = new Backend();
 		
 		popup.showAndWait();
-		
-		
-		if (str.equals("Successfully created new user.")) {
-			((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
-		}
-		
-		
+		System.out.println("like this");
 		bk = new Backend();
+		setTable();
 	}
 	
-	public void changeScreenButtonPushed(ActionEvent event) throws IOException {
-		
-		Parent SecViewParent = FXMLLoader.load(getClass().getResource("SampleStateChange.fxml"));
-		Scene SecViewScene = new Scene(SecViewParent);
-		
-		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-		
-		window.setScene(SecViewScene);
-		window.show();
-	}
+//	@FXML
+//	public void addAcc(ActionEvent event) throws IOException {
+//		
+//		String str = bk.addUser(usrn.getText(), passw.getText());
+//		
+//		FXMLLoader ld = new FXMLLoader();
+//		ld.setLocation(getClass().getResource("Confirmation.fxml"));
+//		
+//		Parent popParent = ld.load();
+//		
+//		Stage popup = new Stage();
+//		popup.initStyle(StageStyle.TRANSPARENT);
+//		
+//		popup.initModality(Modality.APPLICATION_MODAL);
+//		popup.setTitle("Add Account");
+//		popup.setMinWidth(300);
+//		
+//		
+//		Scene scene = new Scene(popParent);
+//		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+//		
+//		
+//		popup.setScene(scene);
+//		ConfirmController ctr = ld.getController();
+//		
+//		ctr.setLabel(str);
+//		
+//		popup.showAndWait();
+//		
+//		
+//		if (str.equals("Successfully created new user.")) {
+//			((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
+//		}
+//		
+//		
+//		bk = new Backend();
+//		
+//	}
+	
+//	public void changeScreenButtonPushed(ActionEvent event) throws IOException {
+//		
+//		Parent SecViewParent = FXMLLoader.load(getClass().getResource("SampleStateChange.fxml"));
+//		Scene SecViewScene = new Scene(SecViewParent);
+//		
+//		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+//		
+//		window.setScene(SecViewScene);
+//		window.show();
+//	}
 	
 	@FXML 
 	public void handleCloseButtonAction(ActionEvent event) {

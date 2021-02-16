@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="popupBasePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<AnchorPane fx:id="popupBasePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddController">
    <children>
       <Button cancelButton="true" layoutX="111.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" styleClass="purpBut" text="     Cancel     " />
       <Button defaultButton="true" layoutX="260.0" layoutY="199.0" mnemonicParsing="false" onAction="#addAcc" styleClass="purpBut" text="Add Account">
