@@ -15,11 +15,6 @@ public class ButtonFade extends ButtonSkin {
     fadeIn.setNode(control);
     fadeIn.setToValue(1);
     control.setOnMouseEntered(e -> fadeIn.playFromStart());
-    
-//    final FillTransition ft = new FillTransition(Duration.millis(100));
-//    ft.setShape(control.getShape());
-//    ft.setToValue(Color.RED);
-//    control.setOnMouseEntered(e -> ft.playFromStart());
 
     final FadeTransition fadeOut = new FadeTransition(Duration.millis(100));
     fadeOut.setNode(control);

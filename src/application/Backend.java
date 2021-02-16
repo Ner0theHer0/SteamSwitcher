@@ -25,6 +25,10 @@ public class Backend {
 		
 	}
 	
+	public int getNumUsers() {
+		return numUsers;
+	}
+	
 	public String addUser(String user, String pass) {
 		
 		if (map.containsKey(user)) {
@@ -104,7 +108,7 @@ public class Backend {
 			
 			
 		} catch (Exception e) {
-			System.out.println("something went wrong: " + e);
+			System.out.println("Something went wrong: " + e);
 		}
 	}
 	

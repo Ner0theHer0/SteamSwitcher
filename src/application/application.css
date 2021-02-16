@@ -48,3 +48,39 @@
 	-fx-text-fill: #bb86fc;
 	-fx-font-size: 14px;
 }
+
+.table-view {
+    -fx-background-color: #1d1d1d;
+    -fx-border-width:20;
+}
+
+
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: red;
+}
+
+.table-row-cell:selected{
+	-fx-background-color:#292929;
+}
+
+/*
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+
+
+
+*/

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<BorderPane id="BorderPane" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <center>
       <AnchorPane fx:id="basePane" prefHeight="500.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
@@ -29,9 +29,9 @@
       <VBox fx:id="vboxleft" prefHeight="501.0" prefWidth="121.0" BorderPane.alignment="CENTER">
          <children>
             <Region prefHeight="68.0" prefWidth="121.0" />
-            <TableView fx:id="tView" prefHeight="287.0" prefWidth="121.0">
+            <TableView fx:id="tView" prefHeight="341.0" prefWidth="38.0">
               <columns>
-                <TableColumn fx:id="userCol" prefWidth="120.0" text="C1" />
+                <TableColumn fx:id="userCol" prefWidth="120.0" text="Accounts" />
               </columns>
             </TableView>
          </children>

@@ -10,17 +10,15 @@ import javafx.stage.Stage;
 public class ConfirmController {
 	
 	@FXML
-	private Label label6;
+	private Label outputMessage;
 	
 	public void setLabel(String str) {
-		this.label6.setText(str);
+		this.outputMessage.setText(str);
 	}
 	
 	@FXML 
 	public void handleCloseButtonAction(ActionEvent event) {
-		
 		((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
-		System.out.println("should");
 	}
 
 }

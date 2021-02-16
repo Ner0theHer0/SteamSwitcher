@@ -18,13 +18,6 @@ import javafx.stage.StageStyle;
 public class AddController {
 	
 	@FXML
-	private Label label6;
-	
-	public void setLabel(String str) {
-		this.label6.setText(str);
-	}
-	
-	@FXML
 	private TextField usrn;
 	
 	@FXML
@@ -71,11 +64,6 @@ public class AddController {
 		if (str.equals("Successfully created new user.")) {
 			((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
 		}
-		
-		System.out.println("close");
-		//bk = new Backend();
-		
-		
 	}
 
 }

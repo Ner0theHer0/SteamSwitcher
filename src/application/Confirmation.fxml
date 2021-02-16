@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="basePane" prefHeight="178.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ConfirmController">
    <children>
-      <Label fx:id="label6" alignment="CENTER" layoutX="23.0" layoutY="53.0" prefHeight="36.0" prefWidth="301.0" text="Something" textFill="WHITE" />
+      <Label fx:id="outputMessage" alignment="CENTER" layoutX="23.0" layoutY="53.0" prefHeight="36.0" prefWidth="301.0" text="Something" textFill="WHITE" />
       <Button layoutX="151.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" styleClass="purpBut" text="Okay" />
       <HBox fx:id="hboxtop" prefHeight="17.0" prefWidth="345.0">
          <children>
