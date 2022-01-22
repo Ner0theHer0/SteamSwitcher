@@ -1,1 +1,4 @@
 /bin/
+
+target/classes/app/switcher/users.txt
+src/main/resources/app/switcher/users.txt

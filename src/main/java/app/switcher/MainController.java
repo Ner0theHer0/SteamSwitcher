@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,23 +26,30 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
+import org.apache.commons.lang3.SystemUtils;
 
 public class MainController implements Initializable {
 	
 	public Backend bk;
 	private double x = 0;
 	private double y = 0;
+	private User us;
 	
 	// FXML declarations 
 	@FXML Button exitButton;
 	@FXML Button minButton;
+	@FXML Button launchButton;
+	@FXML Button editButton;
+	@FXML Button delButton;
 	
 	@FXML
 	private Stage stage;
 	
 	@FXML
 	private HBox hboxtop;
+
+	@FXML
+	private Label label;
 	
 	@FXML
 	private AnchorPane basePane;
@@ -63,7 +71,14 @@ public class MainController implements Initializable {
 		
 		userCol.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
 		tView.setItems(ls);
-		tView.setPrefHeight((double) bk.getNumUsers()*24 + 30);
+		tView.setPrefHeight((double) bk.getNumUsers()*24 + 28);
+		tView.setMaxHeight((double)297);
+		if (us != null) {
+			label.setText("Please select a user");
+			launchButton.setVisible(false);
+			editButton.setVisible(false);
+			delButton.setVisible(false);
+		}
 	}
 
 	/* Initialises a draggable window, refreshes user list
@@ -74,12 +89,46 @@ public class MainController implements Initializable {
 		makeDragable();
 		bk = new Backend();
 		setTable();
+		launchButton.setVisible(false);
+		editButton.setVisible(false);
+		delButton.setVisible(false);
+
 		tView.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println(tView.getSelectionModel().getSelectedItem().getUsername());
+				launchButton.setVisible(true);
+				editButton.setVisible(true);
+				delButton.setVisible(true);
+				us = tView.getSelectionModel().getSelectedItem();
+				label.setText("Selected account: " + us.getUsername());
 			}	
 		});
+	}
+
+	public void openSteam(String u, String pw) {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+
+		if (SystemUtils.IS_OS_LINUX) {
+			String command = "steam -login " + u + " " + pw;
+			System.out.println(command);
+			processBuilder.command("bash", "-c", command);
+			processBuilder.redirectErrorStream(true);
+			try {
+				Process p = processBuilder.start();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		if (SystemUtils.IS_OS_WINDOWS) {
+			processBuilder.command("cmd.exe", "/c", "steam");
+			processBuilder.redirectErrorStream(true);
+			try {
+				Process p = processBuilder.start();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+
 	}
 	
 	/* Makes the window draggable by the top bar, since the
@@ -121,6 +170,60 @@ public class MainController implements Initializable {
 		popup.showAndWait();
 		bk = new Backend();
 		setTable();
+	}
+
+	public void editAccountButtonPushed(ActionEvent event) throws IOException {
+
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("Popup.fxml"));
+
+		Parent addView = loader.load();
+		Stage popup = new Stage();
+
+		popup.initStyle(StageStyle.TRANSPARENT);
+
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.setTitle("Add Account");
+		popup.setMinWidth(300);
+		Scene addViewScene = new Scene(addView);
+		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		popup.setScene(addViewScene);
+		AddController ctr = loader.getController();
+
+		ctr.setLabel(us.getUsername());
+
+		popup.showAndWait();
+		bk = new Backend();
+		setTable();
+	}
+
+	public void deleteAccountButtonPushed(ActionEvent event) throws IOException {
+		System.out.println("delete");
+//		FXMLLoader loader = new FXMLLoader();
+//		loader.setLocation(getClass().getResource("Popup.fxml"));
+//
+//		Parent addView = loader.load();
+//		Stage popup = new Stage();
+//
+//		popup.initStyle(StageStyle.TRANSPARENT);
+//
+//		popup.initModality(Modality.APPLICATION_MODAL);
+//		popup.setTitle("Add Account");
+//		popup.setMinWidth(300);
+//		Scene addViewScene = new Scene(addView);
+//		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+//		popup.setScene(addViewScene);
+//		AddController ctr = loader.getController();
+//
+//		ctr.setLabel(us.getUsername());
+//
+//		popup.showAndWait();
+//		bk = new Backend();
+//		setTable();
+	}
+
+	public void launchButtonPushed(ActionEvent event) throws IOException {
+		openSteam(us.getUsername(), us.getPassword());
 	}
 	
 	/* Minimise action since the default minimise button is

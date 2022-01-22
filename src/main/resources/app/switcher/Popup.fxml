@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="popupBasePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.switcher.AddController">
+
+<AnchorPane fx:id="popupBasePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.switcher.AddController">
    <children>
       <Button cancelButton="true" layoutX="111.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" styleClass="purpBut" text="     Cancel     " />
-      <Button defaultButton="true" layoutX="260.0" layoutY="199.0" mnemonicParsing="false" onAction="#addAcc" styleClass="purpBut" text="Add Account">
+      <Button fx:id="confirm" defaultButton="true" layoutX="260.0" layoutY="199.0" mnemonicParsing="false" onAction="#addAcc" styleClass="purpBut" text="Add Account">
          <font>
             <Font name="Roboto Bold" size="12.0" />
          </font></Button>
@@ -18,26 +21,7 @@
       <PasswordField fx:id="passw" layoutX="153.0" layoutY="122.0" promptText="Password" />
       <HBox fx:id="hboxtop" prefHeight="25.0" prefWidth="455.0">
          <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <Region prefHeight="25.0" prefWidth="295.0" />
+            <Region prefHeight="25.0" prefWidth="427.0" />
             <Button fx:id="exitButton" mnemonicParsing="false" onAction="#handleCloseButtonAction" styleClass="navButton">
                <graphic>
                   <ImageView fitHeight="14.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="navButton">

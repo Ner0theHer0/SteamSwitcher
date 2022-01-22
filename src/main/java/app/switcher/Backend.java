@@ -45,7 +45,7 @@ public class Backend {
 			user.replaceAll("\\s+","");
 			
 			try {
-				
+
 				BufferedWriter out = new BufferedWriter(new FileWriter(path, true)); 
 		        out.write(user + " " + pass + "\n"); 
 		        out.close();
@@ -58,6 +58,45 @@ public class Backend {
 		return ("Successfully created new user.");
 		
 	}
+
+	public String editUser(String user, String newName, String pass) {
+
+		if (!map.containsKey(user)) {
+			System.out.println(user +" " + newName);
+			return ("User does not exist!");
+		}
+
+		if (map.containsKey(newName) && !user.equals(newName)) {
+			return ("Another account is using this username");
+		}
+
+		if (user.equals("")) {
+			return ("Cannot add a blank username or password");
+		}
+
+		else {
+
+			if (pass.equals("")) {
+				pass = map.get(user).getPassword();
+			}
+
+			newName.replaceAll("\\s+","");
+
+			try {
+
+				removeUser(user);
+				BufferedWriter out = new BufferedWriter(new FileWriter(path, true));
+				out.write(newName + " " + pass + "\n");
+				out.close();
+
+			} catch (Exception e) {
+				return ("Couldn't edit user: " + e);
+			}
+		}
+
+		return ("Successfully updated user " + newName);
+
+	}
 	
 	public String removeUser(String user) {
 		
@@ -66,7 +105,6 @@ public class Backend {
 		}
 		
 		else {
-			
 			
 			map.remove(user);
 			
