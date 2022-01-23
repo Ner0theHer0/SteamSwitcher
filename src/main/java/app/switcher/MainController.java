@@ -34,6 +34,8 @@ public class MainController implements Initializable {
 	private double x = 0;
 	private double y = 0;
 	private User us;
+
+	private Preferences p;
 	
 	// FXML declarations 
 	@FXML Button exitButton;
@@ -79,6 +81,10 @@ public class MainController implements Initializable {
 			editButton.setVisible(false);
 			delButton.setVisible(false);
 		}
+	}
+
+	public void setPreferences (Preferences p) {
+		this.p = p;
 	}
 
 	/* Initialises a draggable window, refreshes user list
@@ -218,6 +224,31 @@ public class MainController implements Initializable {
 		ctr.setLabel(us.getUsername());
 
 		delete.showAndWait();
+		bk = new Backend();
+		setTable();
+	}
+
+	public void preferencesButtonPushed(ActionEvent event) throws IOException {
+
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("Preferences.fxml"));
+
+		Parent addView = loader.load();
+		Stage popup = new Stage();
+
+		popup.initStyle(StageStyle.TRANSPARENT);
+
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.setTitle("Add Account");
+		popup.setMinWidth(300);
+		Scene addViewScene = new Scene(addView);
+		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		popup.setScene(addViewScene);
+
+		PreferencesController ctr = loader.getController();
+		ctr.initSettings(this.p);
+
+		popup.showAndWait();
 		bk = new Backend();
 		setTable();
 	}

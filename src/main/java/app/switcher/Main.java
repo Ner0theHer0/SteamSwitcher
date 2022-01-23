@@ -1,5 +1,5 @@
 package app.switcher;
-	
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,20 +9,31 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
-		 Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-	     Scene scene = new Scene(root);
-	     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-	        
-	     
-	     primaryStage.setScene(scene);
-	     primaryStage.show();		
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("Main.fxml"));
+
+        Parent root = loader.load();
+        //Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+
+        Scene scene = new Scene(root);
+
+        Preferences p = new Preferences();
+        p.readFromFile();
+
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+        primaryStage.setScene(scene);
+
+        MainController ctr = loader.getController();
+        ctr.setPreferences(p);
+
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

@@ -17,11 +17,11 @@ public class Backend {
 		
 		readFromFile();
 		
-		System.out.println(numUsers);
-		
-		for (HashMap.Entry<String, User> entry : map.entrySet()) {
-		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getPassword());
-		}
+//		System.out.println(numUsers);
+//
+//		for (HashMap.Entry<String, User> entry : map.entrySet()) {
+//		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getPassword());
+//		}
 		
 	}
 	
@@ -130,8 +130,9 @@ public class Backend {
 	}
 	
 	public void readFromFile() {
+		System.out.println("exe");
 		try {
-			System.out.println(System.getProperty("user.dir"));
+			//System.out.println(System.getProperty("user.dir"));
 			Scanner in = new Scanner(new FileReader(path));
 			numUsers = 0;
 			
@@ -141,10 +142,8 @@ public class Backend {
 				String[] thisLine = in.nextLine().split("\\s+");
 				map.put(thisLine[0], new User(thisLine[0], thisLine[1]));
 				numUsers++;
-					
+
 			}
-			
-			
 			
 		} catch (Exception e) {
 			System.out.println("Something went wrong: " + e);
