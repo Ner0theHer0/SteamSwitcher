@@ -15,6 +15,10 @@
 	-fx-background-color: #555555;
 }
 
+#delBasePane {
+	-fx-background-color: #555555;
+}
+
 #vboxleft {
 	-fx-background-color: #1d1d1d;
 }

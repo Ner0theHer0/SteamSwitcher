@@ -198,28 +198,28 @@ public class MainController implements Initializable {
 	}
 
 	public void deleteAccountButtonPushed(ActionEvent event) throws IOException {
-		System.out.println("delete");
-//		FXMLLoader loader = new FXMLLoader();
-//		loader.setLocation(getClass().getResource("Popup.fxml"));
-//
-//		Parent addView = loader.load();
-//		Stage popup = new Stage();
-//
-//		popup.initStyle(StageStyle.TRANSPARENT);
-//
-//		popup.initModality(Modality.APPLICATION_MODAL);
-//		popup.setTitle("Add Account");
-//		popup.setMinWidth(300);
-//		Scene addViewScene = new Scene(addView);
-//		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-//		popup.setScene(addViewScene);
-//		AddController ctr = loader.getController();
-//
-//		ctr.setLabel(us.getUsername());
-//
-//		popup.showAndWait();
-//		bk = new Backend();
-//		setTable();
+
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("Delete.fxml"));
+
+		Parent delView = loader.load();
+		Stage delete = new Stage();
+
+		delete.initStyle(StageStyle.TRANSPARENT);
+
+		delete.initModality(Modality.APPLICATION_MODAL);
+		delete.setTitle("Delete Account");
+		delete.setMinWidth(300);
+		Scene addViewScene = new Scene(delView);
+		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		delete.setScene(addViewScene);
+		DeleteController ctr = loader.getController();
+
+		ctr.setLabel(us.getUsername());
+
+		delete.showAndWait();
+		bk = new Backend();
+		setTable();
 	}
 
 	public void launchButtonPushed(ActionEvent event) throws IOException {

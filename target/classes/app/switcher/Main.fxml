@@ -52,6 +52,8 @@
                 <Menu mnemonicParsing="false" text="File">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#addAccountButtonPushed" text="Add Account" />
+                        <MenuItem mnemonicParsing="false" onAction="#addAccountButtonPushed" text="Preferences" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleCloseButtonAction" text="Exit" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
