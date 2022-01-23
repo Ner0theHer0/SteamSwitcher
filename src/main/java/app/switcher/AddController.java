@@ -17,6 +17,8 @@ import java.io.IOException;
 public class AddController {
 
 	public String edit;
+
+	private Backend bk;
 	
 	@FXML
 	private TextField usrn;
@@ -33,6 +35,10 @@ public class AddController {
 		((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
 	}
 
+	public void setBk(Backend bk) {
+		this.bk = bk;
+	}
+
 	public void setLabel(String str) {
 		this.usrn.setText(str);
 		this.edit = str;
@@ -43,8 +49,7 @@ public class AddController {
 	
 	@FXML
 	public void addAcc(ActionEvent event) throws IOException {
-		
-		Backend bk = new Backend();
+
 		String str;
 		if (edit != null) {
 			str = bk.editUser(edit, usrn.getText(), passw.getText());

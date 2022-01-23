@@ -160,7 +160,10 @@ public class MainController implements Initializable {
 	
 	public void addAccountButtonPushed(ActionEvent event) throws IOException {
 		
-		Parent addView = FXMLLoader.load(getClass().getResource("Popup.fxml"));	
+		//Parent addView = FXMLLoader.load(getClass().getResource("Popup.fxml"));
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("Popup.fxml"));
+		Parent addView = loader.load();
 		
 		Stage popup = new Stage();
 		
@@ -172,9 +175,11 @@ public class MainController implements Initializable {
 		Scene addViewScene = new Scene(addView);
 		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		popup.setScene(addViewScene);
+
+		AddController ctr = loader.getController();
+		ctr.setBk(bk);
 		
 		popup.showAndWait();
-		bk = new Backend();
 		setTable();
 	}
 
@@ -194,12 +199,12 @@ public class MainController implements Initializable {
 		Scene addViewScene = new Scene(addView);
 		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		popup.setScene(addViewScene);
-		AddController ctr = loader.getController();
 
+		AddController ctr = loader.getController();
 		ctr.setLabel(us.getUsername());
+		ctr.setBk(bk);
 
 		popup.showAndWait();
-		bk = new Backend();
 		setTable();
 	}
 
@@ -222,9 +227,9 @@ public class MainController implements Initializable {
 		DeleteController ctr = loader.getController();
 
 		ctr.setLabel(us.getUsername());
+		ctr.setBk(bk);
 
 		delete.showAndWait();
-		bk = new Backend();
 		setTable();
 	}
 
@@ -249,7 +254,6 @@ public class MainController implements Initializable {
 		ctr.initSettings(this.p);
 
 		popup.showAndWait();
-		bk = new Backend();
 		setTable();
 	}
 

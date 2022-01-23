@@ -17,12 +17,14 @@ public class Backend {
 		
 		readFromFile();
 		
-//		System.out.println(numUsers);
-//
-//		for (HashMap.Entry<String, User> entry : map.entrySet()) {
-//		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getPassword());
-//		}
-		
+	}
+
+	public void outString() {
+		System.out.println(numUsers);
+
+		for (HashMap.Entry<String, User> entry : map.entrySet()) {
+			System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getPassword());
+		}
 	}
 	
 	public int getNumUsers() {
@@ -49,6 +51,9 @@ public class Backend {
 				BufferedWriter out = new BufferedWriter(new FileWriter(path, true)); 
 		        out.write(user + " " + pass + "\n"); 
 		        out.close();
+				map.put(user, new User(user, pass));
+				numUsers++;
+
 			    
 			} catch (Exception e) {
 				return ("Couldn't create new user: " + e);
@@ -88,6 +93,7 @@ public class Backend {
 				BufferedWriter out = new BufferedWriter(new FileWriter(path, true));
 				out.write(newName + " " + pass + "\n");
 				out.close();
+				map.put(newName, new User(newName, pass));
 
 			} catch (Exception e) {
 				return ("Couldn't edit user: " + e);
@@ -130,12 +136,10 @@ public class Backend {
 	}
 	
 	public void readFromFile() {
-		System.out.println("exe");
 		try {
-			//System.out.println(System.getProperty("user.dir"));
+
 			Scanner in = new Scanner(new FileReader(path));
 			numUsers = 0;
-			
 			
 			while (in.hasNext()) {
 				

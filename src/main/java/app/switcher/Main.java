@@ -16,7 +16,6 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("Main.fxml"));
 
         Parent root = loader.load();
-        //Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
 
         Scene scene = new Scene(root);
 
@@ -26,6 +25,7 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
         primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         MainController ctr = loader.getController();
         ctr.setPreferences(p);

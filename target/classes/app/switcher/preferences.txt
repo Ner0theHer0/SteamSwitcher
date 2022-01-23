@@ -1,3 +1,0 @@
-encryptEnabled=true
-closeBeforeLaunch=true
-theme=dark

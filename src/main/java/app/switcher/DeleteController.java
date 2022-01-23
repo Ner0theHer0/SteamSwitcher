@@ -15,6 +15,8 @@ public class DeleteController {
 
     private String user;
 
+    private Backend bk;
+
     public void handleCloseButtonAction(ActionEvent event) {
 
         ((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
@@ -24,9 +26,12 @@ public class DeleteController {
         this.user = u;
     }
 
+    public void setBk(Backend bk) {
+        this.bk = bk;
+    }
+
     public void delAcc(ActionEvent event) throws IOException {
 
-        Backend bk = new Backend();
         String str = bk.removeUser(user);
 
         FXMLLoader ld = new FXMLLoader();
