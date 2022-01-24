@@ -11,7 +11,10 @@ public class Backend {
 	
 	private int numUsers;
 	HashMap<String, User> map = new HashMap<String, User>();
-	private String path = "src/main/resources/app/switcher/users.txt";
+	private String uPath = "src/main/resources/app/switcher/users.txt";
+	private String pPath = "src/main/resources/app/switcher/pwd.txt";
+
+	private String key;
 	
 	public Backend() {
 		
@@ -29,6 +32,11 @@ public class Backend {
 	
 	public int getNumUsers() {
 		return numUsers;
+	}
+
+	public void setKey(String k) {
+		this.key = k;
+		System.out.println(key);
 	}
 	
 	public String addUser(String user, String pass) {
@@ -48,9 +56,15 @@ public class Backend {
 			
 			try {
 
-				BufferedWriter out = new BufferedWriter(new FileWriter(path, true)); 
-		        out.write(user + " " + pass + "\n"); 
-		        out.close();
+				Encryptor e = new Encryptor();
+				String outPass = e.encrypt(pass, key);
+
+				BufferedWriter uOut = new BufferedWriter(new FileWriter(uPath, true));
+				BufferedWriter pOut = new BufferedWriter(new FileWriter(pPath, true));
+				uOut.write(user + "\n");
+				pOut.write(outPass + "\n");
+				uOut.close();
+				pOut.close();
 				map.put(user, new User(user, pass));
 				numUsers++;
 
@@ -67,7 +81,6 @@ public class Backend {
 	public String editUser(String user, String newName, String pass) {
 
 		if (!map.containsKey(user)) {
-			System.out.println(user +" " + newName);
 			return ("User does not exist!");
 		}
 
@@ -82,7 +95,9 @@ public class Backend {
 		else {
 
 			if (pass.equals("")) {
+
 				pass = map.get(user).getPassword();
+
 			}
 
 			newName.replaceAll("\\s+","");
@@ -90,9 +105,16 @@ public class Backend {
 			try {
 
 				removeUser(user);
-				BufferedWriter out = new BufferedWriter(new FileWriter(path, true));
-				out.write(newName + " " + pass + "\n");
-				out.close();
+				Encryptor e = new Encryptor();
+				String outPass = e.encrypt(pass, key);
+
+				BufferedWriter uOut = new BufferedWriter(new FileWriter(uPath, true));
+				BufferedWriter pOut = new BufferedWriter(new FileWriter(pPath, true));
+				uOut.write(newName + "\n");
+				pOut.write(outPass + "\n");
+				uOut.close();
+				pOut.close();
+
 				map.put(newName, new User(newName, pass));
 
 			} catch (Exception e) {
@@ -115,15 +137,25 @@ public class Backend {
 			map.remove(user);
 			
 			try {
-				FileWriter writer = new FileWriter(path);
+				FileWriter uWriter = new FileWriter(uPath);
+				FileWriter pWriter = new FileWriter(pPath);
 				
-			    writer.write("");
-			    writer.close();
+			    uWriter.write("");
+				pWriter.write("");
+			    uWriter.close();
+				pWriter.close();
 			    
-			    for (String key : map.keySet()) {
-			    	BufferedWriter out = new BufferedWriter(new FileWriter(path, true)); 
-			        out.write(key + " " + map.get(key).getPassword() + "\n"); 
-			        out.close();
+			    for (String u : map.keySet()) {
+
+					BufferedWriter uOut = new BufferedWriter(new FileWriter(uPath, true));
+					BufferedWriter pOut = new BufferedWriter(new FileWriter(pPath, true));
+					uOut.write(u + "\n");
+					Encryptor e = new Encryptor();
+					String pass = e.encrypt(map.get(u).getPassword(), key);
+					pOut.write(pass + "\n");
+					uOut.close();
+					pOut.close();
+
 				}
 			    
 			    
@@ -138,13 +170,19 @@ public class Backend {
 	public void readFromFile() {
 		try {
 
-			Scanner in = new Scanner(new FileReader(path));
+			Scanner uin = new Scanner(new FileReader(uPath));
+			Scanner pin = new Scanner(new FileReader(pPath));
 			numUsers = 0;
 			
-			while (in.hasNext()) {
-				
-				String[] thisLine = in.nextLine().split("\\s+");
-				map.put(thisLine[0], new User(thisLine[0], thisLine[1]));
+			while (uin.hasNext()) {
+
+				String thisLineU = uin.nextLine();
+				String thisLineP = pin.nextLine();
+
+				Encryptor d = new Encryptor();
+				thisLineP = d.decrypt(thisLineP, key);
+
+				map.put(thisLineU, new User(thisLineU, thisLineP));
 				numUsers++;
 
 			}
@@ -152,6 +190,7 @@ public class Backend {
 		} catch (Exception e) {
 			System.out.println("Something went wrong: " + e);
 		}
+		outString();
 	}
 	
 }

@@ -31,6 +31,7 @@ public class Main extends Application {
         ctr.setPreferences(p);
 
         primaryStage.show();
+        ctr.checkEncrypt();
     }
 
     public static void main(String[] args) {

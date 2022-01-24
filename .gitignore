@@ -1,5 +1,6 @@
 /bin/
 
 *users.txt
+*pwd.txt
 
 target/*

@@ -87,11 +87,22 @@ public class MainController implements Initializable {
 		this.p = p;
 	}
 
+	public void checkEncrypt() {
+		if (!p.encryptEnabled) {
+			try {
+				enableEncryptWindow();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+
 	/* Initialises a draggable window, refreshes user list
 	 * and initialises table
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+
 		makeDragable();
 		bk = new Backend();
 		setTable();
@@ -159,8 +170,7 @@ public class MainController implements Initializable {
 	 */
 	
 	public void addAccountButtonPushed(ActionEvent event) throws IOException {
-		
-		//Parent addView = FXMLLoader.load(getClass().getResource("Popup.fxml"));
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("Popup.fxml"));
 		Parent addView = loader.load();
@@ -252,6 +262,30 @@ public class MainController implements Initializable {
 
 		PreferencesController ctr = loader.getController();
 		ctr.initSettings(this.p);
+
+		popup.showAndWait();
+		setTable();
+	}
+
+	public void enableEncryptWindow() throws IOException {
+
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("EnablePrompt.fxml"));
+
+		Parent addView = loader.load();
+		Stage popup = new Stage();
+
+		popup.initStyle(StageStyle.TRANSPARENT);
+
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.setTitle("Add Account");
+		popup.setMinWidth(300);
+		Scene addViewScene = new Scene(addView);
+		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		popup.setScene(addViewScene);
+
+		EnablePromptController ctr = loader.getController();
+		ctr.initSettings(this.p, bk);
 
 		popup.showAndWait();
 		setTable();
