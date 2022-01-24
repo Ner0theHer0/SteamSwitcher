@@ -132,12 +132,17 @@ public class MainController implements Initializable {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 
 		if (SystemUtils.IS_OS_LINUX) {
-			String command = "steam -login " + u + " " + pw;
-			System.out.println(command);
+			String command;
+			if (p.closeBeforeLaunch) {
+				command = "steam -shutdown && steam -login " + u + " " + pw;
+			} else {
+				command = "steam -login " + u + " " + pw;
+			}
+
 			processBuilder.command("bash", "-c", command);
 			processBuilder.redirectErrorStream(true);
 			try {
-				Process p = processBuilder.start();
+				processBuilder.start();
 			} catch (Exception e) {
 				System.out.println(e);
 			}

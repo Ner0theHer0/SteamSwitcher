@@ -20,7 +20,7 @@ public class LoginController {
 
     public void handleCloseButtonAction(ActionEvent event) {
 
-        ((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
+        System.exit(0);
     }
 
     public void checkBlank() {
