@@ -7,23 +7,28 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
-public class CreateEncryptController {
+public class LoginController {
 
     private Preferences p;
     private Backend bk;
 
     @FXML
+    private Button login;
+
+    @FXML
     private PasswordField passw;
-
-    @FXML
-    private PasswordField confirmPassw;
-
-    @FXML
-    private Button confirm;
 
     public void handleCloseButtonAction(ActionEvent event) {
 
         ((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
+    }
+
+    public void checkBlank() {
+        if (passw.getText().equals("")) {
+            login.setDisable(true);
+        } else {
+            login.setDisable(false);
+        }
     }
 
     public void initSettings(Preferences p, Backend bk) {
@@ -31,24 +36,10 @@ public class CreateEncryptController {
         this.bk = bk;
     }
 
-    public void checkMatching() {
-        if (passw.getText().equals(confirmPassw.getText())) {
-            if (!passw.getText().equals("")) {
-                confirm.setDisable(false);
-            }
-        } else {
-            confirm.setDisable(true);
-        }
-    }
-
-    public void handConfirmAction(ActionEvent event) {
-
+    public void handleLoginPressed(ActionEvent event) {
         bk.setKey(passw.getText());
         bk.readFromFile();
-        p.encryptEnabled = true;
-        p.writeToFile();
         ((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
     }
-
 
 }

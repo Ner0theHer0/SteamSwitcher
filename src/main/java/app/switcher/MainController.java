@@ -94,6 +94,12 @@ public class MainController implements Initializable {
 			} catch (Exception e) {
 				System.out.println(e);
 			}
+		} else {
+			try {
+				loginWindow();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		}
 	}
 
@@ -285,6 +291,30 @@ public class MainController implements Initializable {
 		popup.setScene(addViewScene);
 
 		EnablePromptController ctr = loader.getController();
+		ctr.initSettings(this.p, bk);
+
+		popup.showAndWait();
+		setTable();
+	}
+
+	public void loginWindow() throws IOException {
+
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("Login.fxml"));
+
+		Parent addView = loader.load();
+		Stage popup = new Stage();
+
+		popup.initStyle(StageStyle.TRANSPARENT);
+
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.setTitle("Login");
+		popup.setMinWidth(300);
+		Scene addViewScene = new Scene(addView);
+		addViewScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		popup.setScene(addViewScene);
+
+		LoginController ctr = loader.getController();
 		ctr.initSettings(this.p, bk);
 
 		popup.showAndWait();
