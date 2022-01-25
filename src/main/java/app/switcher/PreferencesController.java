@@ -65,6 +65,9 @@ public class PreferencesController {
             ctr.initSettings(this.p, bk);
 
             popup.showAndWait();
+            if (!p.encryptEnabled) {
+                encryptBox.setSelected(false);
+            }
         } else {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("Disable.fxml"));
@@ -85,6 +88,9 @@ public class PreferencesController {
             ctr.initSettings(this.p, bk);
 
             popup.showAndWait();
+            if (p.encryptEnabled) {
+                encryptBox.setSelected(true);
+            }
         }
     }
 
