@@ -2,10 +2,15 @@ package app.switcher;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LoginController {
 
@@ -36,10 +41,40 @@ public class LoginController {
         this.bk = bk;
     }
 
-    public void handleLoginPressed(ActionEvent event) {
-        bk.setKey(passw.getText());
-        bk.readFromFile();
-        ((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
+    public void handleLoginPressed(ActionEvent event) throws Exception {
+
+        if (bk.checkKey(passw.getText())) {
+            bk.setKey(passw.getText());
+            bk.readFromFile();
+            ((Stage)(((Node)event.getSource()).getScene().getWindow())).close();
+        } else {
+
+            String msg = "Incorrect password";
+            FXMLLoader ld = new FXMLLoader();
+            ld.setLocation(getClass().getResource("Confirmation.fxml"));
+
+            Parent popParent = ld.load();
+
+            Stage popup = new Stage();
+            popup.initStyle(StageStyle.TRANSPARENT);
+
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setTitle("Add Account");
+            popup.setMinWidth(300);
+
+
+            Scene scene = new Scene(popParent);
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+
+            popup.setScene(scene);
+            ConfirmController ctr = ld.getController();
+
+            ctr.setLabel(msg);
+
+            popup.showAndWait();
+        }
+
     }
 
 }

@@ -2,5 +2,6 @@
 
 *users.txt
 *pwd.txt
+*crypt.bin
 
 target/*

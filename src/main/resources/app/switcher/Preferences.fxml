@@ -58,12 +58,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox fx:id="encryptBox" mnemonicParsing="false" text="Encryption for password file" textFill="WHITE" />
+            <CheckBox fx:id="encryptBox" mnemonicParsing="false" onMouseClicked="#handleEncryptToggle" text="Encryption for password file" textFill="WHITE" />
             <Label prefHeight="16.0" prefWidth="151.0" text="      Appearence" GridPane.rowIndex="3" />
             <ChoiceBox fx:id="themeChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label prefHeight="43.0" prefWidth="227.0" wrapText="true" GridPane.rowIndex="3" />
             <CheckBox fx:id="launchBox" mnemonicParsing="false" text="Attempt to close steam before launching" textFill="WHITE" wrapText="true" GridPane.rowIndex="1" />
-            <Button fx:id="resetBut" mnemonicParsing="false" prefHeight="24.0" prefWidth="94.0" text="Reset..." GridPane.columnIndex="1" />
+            <Button fx:id="resetBut" mnemonicParsing="false" onAction="#handleResetButton" prefHeight="24.0" prefWidth="94.0" text="Reset..." GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Backend {
+
+	private Preferences p;
 	
 	private int numUsers;
 	HashMap<String, User> map = new HashMap<String, User>();
@@ -17,9 +19,13 @@ public class Backend {
 	private String key;
 	
 	public Backend() {
+
+		//readFromFile();
 		
-		readFromFile();
-		
+	}
+
+	public void setPreferences(Preferences p) {
+		this.p = p;
 	}
 
 	public void outString() {
@@ -37,6 +43,14 @@ public class Backend {
 	public void setKey(String k) {
 		this.key = k;
 		System.out.println(key);
+	}
+
+	public boolean checkKey(String k) {
+		Encryptor e = new Encryptor();
+		if (e.checkHash(k)) {
+			return true;
+		}
+		return false;
 	}
 	
 	public String addUser(String user, String pass) {
@@ -56,8 +70,14 @@ public class Backend {
 			
 			try {
 
-				Encryptor e = new Encryptor();
-				String outPass = e.encrypt(pass, key);
+				String outPass;
+				if (p.encryptEnabled) {
+					Encryptor e = new Encryptor();
+					outPass = e.encrypt(pass, key);
+				} else {
+					outPass = pass;
+				}
+
 
 				BufferedWriter uOut = new BufferedWriter(new FileWriter(uPath, true));
 				BufferedWriter pOut = new BufferedWriter(new FileWriter(pPath, true));
@@ -105,8 +125,14 @@ public class Backend {
 			try {
 
 				removeUser(user);
-				Encryptor e = new Encryptor();
-				String outPass = e.encrypt(pass, key);
+
+				String outPass;
+				if (p.encryptEnabled) {
+					Encryptor e = new Encryptor();
+					outPass = e.encrypt(pass, key);
+				} else {
+					outPass = pass;
+				}
 
 				BufferedWriter uOut = new BufferedWriter(new FileWriter(uPath, true));
 				BufferedWriter pOut = new BufferedWriter(new FileWriter(pPath, true));
@@ -150,8 +176,13 @@ public class Backend {
 					BufferedWriter uOut = new BufferedWriter(new FileWriter(uPath, true));
 					BufferedWriter pOut = new BufferedWriter(new FileWriter(pPath, true));
 					uOut.write(u + "\n");
-					Encryptor e = new Encryptor();
-					String pass = e.encrypt(map.get(u).getPassword(), key);
+					String pass;
+					if (p.encryptEnabled) {
+						Encryptor e = new Encryptor();
+						pass = e.encrypt(map.get(u).getPassword(), key);
+					} else {
+						pass = map.get(u).getPassword();
+					}
 					pOut.write(pass + "\n");
 					uOut.close();
 					pOut.close();
@@ -179,8 +210,11 @@ public class Backend {
 				String thisLineU = uin.nextLine();
 				String thisLineP = pin.nextLine();
 
-				Encryptor d = new Encryptor();
-				thisLineP = d.decrypt(thisLineP, key);
+
+				if (p.encryptEnabled) {
+					Encryptor d = new Encryptor();
+					thisLineP = d.decrypt(thisLineP, key);
+				}
 
 				map.put(thisLineU, new User(thisLineU, thisLineP));
 				numUsers++;
@@ -191,6 +225,60 @@ public class Backend {
 			System.out.println("Something went wrong: " + e);
 		}
 		outString();
+	}
+
+	public void decryptFile() {
+		try {
+			FileWriter uWriter = new FileWriter(uPath);
+			FileWriter pWriter = new FileWriter(pPath);
+
+			uWriter.write("");
+			pWriter.write("");
+			uWriter.close();
+			pWriter.close();
+
+			for (String u : map.keySet()) {
+
+				BufferedWriter uOut = new BufferedWriter(new FileWriter(uPath, true));
+				BufferedWriter pOut = new BufferedWriter(new FileWriter(pPath, true));
+				uOut.write(u + "\n");
+				pOut.write(map.get(u).getPassword() + "\n");
+				uOut.close();
+				pOut.close();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void encryptFile() {
+		try {
+			FileWriter uWriter = new FileWriter(uPath);
+			FileWriter pWriter = new FileWriter(pPath);
+
+			uWriter.write("");
+			pWriter.write("");
+			uWriter.close();
+			pWriter.close();
+
+			Encryptor e = new Encryptor();
+			e.createHash(key);
+
+			for (String u : map.keySet()) {
+
+				String outPass = e.encrypt(map.get(u).getPassword(), key);
+
+
+				BufferedWriter uOut = new BufferedWriter(new FileWriter(uPath, true));
+				BufferedWriter pOut = new BufferedWriter(new FileWriter(pPath, true));
+				uOut.write(u + "\n");
+				pOut.write(outPass + "\n");
+				uOut.close();
+				pOut.close();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 	
 }

@@ -44,7 +44,7 @@ public class CreateEncryptController {
     public void handConfirmAction(ActionEvent event) {
 
         bk.setKey(passw.getText());
-        bk.readFromFile();
+        bk.encryptFile();
         p.encryptEnabled = true;
         p.writeToFile();
         ((Stage)(((Node)event.getSource()).getScene().getWindow())).close();

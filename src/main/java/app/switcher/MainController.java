@@ -74,7 +74,7 @@ public class MainController implements Initializable {
 		userCol.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
 		tView.setItems(ls);
 		tView.setPrefHeight((double) bk.getNumUsers()*24 + 28);
-		tView.setMaxHeight((double)297);
+		tView.setMaxHeight(297);
 		if (us != null) {
 			label.setText("Please select a user");
 			launchButton.setVisible(false);
@@ -85,6 +85,8 @@ public class MainController implements Initializable {
 
 	public void setPreferences (Preferences p) {
 		this.p = p;
+		bk.setPreferences(p);
+		bk.readFromFile();
 	}
 
 	public void checkEncrypt() {
@@ -148,10 +150,16 @@ public class MainController implements Initializable {
 			}
 		}
 		if (SystemUtils.IS_OS_WINDOWS) {
-			processBuilder.command("cmd.exe", "/c", "steam");
+			String command;
+			if (p.closeBeforeLaunch) {
+				command = "steam -shutdown && steam -login " + u + " " + pw;
+			} else {
+				command = "steam -login " + u + " " + pw;
+			}
+			processBuilder.command("cmd.exe", "/c", command);
 			processBuilder.redirectErrorStream(true);
 			try {
-				Process p = processBuilder.start();
+				processBuilder.start();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
@@ -272,7 +280,7 @@ public class MainController implements Initializable {
 		popup.setScene(addViewScene);
 
 		PreferencesController ctr = loader.getController();
-		ctr.initSettings(this.p);
+		ctr.initSettings(this.p, this.bk);
 
 		popup.showAndWait();
 		setTable();
@@ -303,6 +311,8 @@ public class MainController implements Initializable {
 	}
 
 	public void loginWindow() throws IOException {
+
+		//bk.setPreferences(p);
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("Login.fxml"));

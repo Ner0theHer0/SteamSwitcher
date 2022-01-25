@@ -9,6 +9,9 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -18,8 +21,11 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
+import java.util.Scanner;
 
 public class Encryptor {
+
+    private static String path = "src/main/resources/app/switcher/crypt.bin";
 
     public static String encrypt(String plainText, String password) {
         try {
@@ -29,7 +35,9 @@ public class Encryptor {
             }
 
             // GENERATE random salt (needed for PBKDF2)
-            final byte[] salt = new byte[64];
+            Scanner in = new Scanner(new FileReader(path));
+            String thisLine = in.nextLine();
+            byte[] salt = Base64.getDecoder().decode(thisLine);
 
             // DERIVE key (from password and salt)
             SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
@@ -52,14 +60,17 @@ public class Encryptor {
 
             return cipherText;
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | InvalidParameterException | InvalidAlgorithmParameterException | InvalidKeySpecException e) {
+        } catch (FileNotFoundException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | InvalidParameterException | InvalidAlgorithmParameterException | InvalidKeySpecException e) {
             return null;
         }
     }
 
     public static String decrypt(String cipherText, String password) {
         try {
-            final byte[] salt = new byte[64];
+            Scanner in = new Scanner(new FileReader(path));
+            String thisLine = in.nextLine();
+            byte[] salt = Base64.getDecoder().decode(thisLine);
+
             SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
             KeySpec passwordBasedEncryptionKeySpec = new PBEKeySpec(password.toCharArray(), salt, 10000, 256);
             SecretKey secretKeyFromPBKDF2 = secretKeyFactory.generateSecret(passwordBasedEncryptionKeySpec);
@@ -79,11 +90,64 @@ public class Encryptor {
         }
     }
 
+    public static void createHash(String password) {
+        try {
+
+            SecureRandom random = new SecureRandom();
+            byte[] salt = new byte[32];
+            random.nextBytes(salt);
+
+            FileWriter writer = new FileWriter(path);
+            writer.write(Base64.getEncoder().encodeToString(salt));
+            writer.write(System.getProperty("line.separator"));
+
+            System.out.println(Base64.getEncoder().encodeToString(salt));
+
+            KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
+            byte[] hash = factory.generateSecret(spec).getEncoded();
+            String out = Base64.getEncoder().encodeToString(hash);
+            System.out.println(out);
+            writer.write(out);
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public static boolean checkHash(String key) {
+        try {
+            Scanner in = new Scanner(new FileReader(path));
+            String s = in.nextLine();
+            byte[] salt = Base64.getDecoder().decode(s);
+            String thisLine = in.nextLine();
+
+            KeySpec spec = new PBEKeySpec(key.toCharArray(), salt, 65536, 128);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
+            byte[] hash = factory.generateSecret(spec).getEncoded();
+            String out = Base64.getEncoder().encodeToString(hash);
+            System.out.println();
+            return out.equals(thisLine);
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+
+
+    }
+
 //    public static void main(String[] args) {
 //        String e = encrypt("Text that is going to be sent over an insecure channel and must be encrypted at all costs!","abc123");
 //        System.out.println(e);
 //        String d = decrypt(e, "abc123");
 //        System.out.println(d);
+//        createHash("asdf");
+//        System.out.println(checkHash("asd"));
 //    }
 
 }
