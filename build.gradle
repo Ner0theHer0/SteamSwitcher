@@ -43,11 +43,22 @@ application {
 }
 
 jlink {
+
     launcher {
-        name = 'switcher'
+        name = 'SteamSwitcher'
     }
+
     jpackage {
         installerType = 'deb'
-        installerOptions = ['--linux-shortcut']
+        installerOptions += [
+                '--linux-shortcut',
+                "--resource-dir", "build/jpackage/SteamSwitcher/lib"
+        ]
+        imageOptions += [
+                "--icon", "src/main/resources/com/switcher/SteamSwitcher.png"
+        ]
     }
+//    jpackage {
+//        installerType = 'msi'
+//    }
 }

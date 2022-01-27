@@ -161,6 +161,7 @@ public class Backend {
 		else {
 			
 			map.remove(user);
+			numUsers--;
 			
 			try {
 				FileWriter uWriter = new FileWriter(uPath);
