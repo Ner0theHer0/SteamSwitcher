@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane id="BorderPane" minWidth="200.0" prefHeight="325.0" prefWidth="527.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.switcher.MainController">
+   <center>
+      <AnchorPane fx:id="basePane" prefHeight="298.0" prefWidth="240.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="label" alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="92.0" prefWidth="226.0" text="Please select a user" wrapText="true" />
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <VBox fx:id="vboxleft" prefHeight="501.0" prefWidth="121.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tView" prefHeight="374.0" prefWidth="121.0">
+              <columns>
+                <TableColumn fx:id="userCol" prefWidth="120.0" text="Accounts" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <HBox fx:id="hboxtop" prefHeight="27.0" prefWidth="555.0" styleClass="hboxtop" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar minWidth="130.0" prefHeight="27.0" prefWidth="130.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#addAccountButtonPushed" text="Add Account" />
+                        <MenuItem mnemonicParsing="false" onAction="#preferencesButtonPushed" text="Preferences" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Region maxWidth="10000.0" minWidth="0.0" prefHeight="27.0" prefWidth="356.0" visible="false" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#minimiseWindow" prefHeight="24.0" prefWidth="0.0" styleClass="navButton">
+               <graphic>
+                  <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons8-minus-24.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#handleCloseButtonAction" styleClass="navButton">
+               <graphic>
+                  <ImageView fitHeight="14.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" styleClass="navButton">
+                     <image>
+                        <Image url="@icons8-delete-24.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+   <right>
+      <AnchorPane fx:id="basePane" prefHeight="298.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="delButton" layoutX="2.0" layoutY="252.0" mnemonicParsing="false" onAction="#deleteAccountButtonPushed" prefHeight="32.0" prefWidth="139.0" styleClass="redBut" text="Delete Account" textFill="#bb86fc">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="editButton" layoutX="2.0" layoutY="47.0" mnemonicParsing="false" onAction="#editAccountButtonPushed" prefHeight="32.0" prefWidth="139.0" styleClass="purpBut" text="Edit Account" textFill="#bb86fc">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font></Button>
+            <Button fx:id="launchButton" layoutX="2.0" layoutY="8.0" mnemonicParsing="false" onAction="#launchButtonPushed" prefHeight="32.0" prefWidth="139.0" styleClass="purpBut" text="Launch Steam" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

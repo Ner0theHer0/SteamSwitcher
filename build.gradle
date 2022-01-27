@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.11'
+    id 'org.beryx.jlink' version '2.24.4'
+    id 'java-library'
+    id("de.jjohannes.extra-java-module-info") version "0.6"
+}
+
+group 'org.steam'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.apache.commons:commons-lang3:3.0'
+}
+
+extraJavaModuleInfo {
+    module("commons-lang3-3.0.jar", "org.apache.commons.lang3", "3.0") {
+        exports("org.apache.commons.lang3")
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = '17.0.2'
+}
+
+
+application {
+    mainClassName('com.switcher.Launcher')
+    mainModule.set('com.switcher')
+
+}
+
+jlink {
+    launcher {
+        name = 'switcher'
+    }
+    jpackage {
+        installerType = 'deb'
+        installerOptions = ['--linux-shortcut']
+    }
+}

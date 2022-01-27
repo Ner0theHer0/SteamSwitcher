@@ -5,3 +5,6 @@
 *crypt.bin
 
 target/*
+.gradle/
+build/
+gradle/
